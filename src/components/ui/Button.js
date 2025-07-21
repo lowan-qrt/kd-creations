@@ -47,11 +47,12 @@ export default function Button({
                 onClick={onClick}
             >
                 {hasMore && <FiPlus />}
+
                 {hasArrowDown && (
                     <SlArrowRight
                         className={clsx(
-                            "transition-transform duration-300",
-                            isOpen ? "rotate-90" : "", "group-hover:rotate-90"
+                            "transition-transform duration-800",
+                            isOpen ? "rotate-90" : ""
                         )}
                     />
                 )}
