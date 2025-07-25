@@ -240,6 +240,42 @@ export function Artworks_creator() {
 }
 
 export function Collections_creator() {
+    const [collection, setCollection] = useState("");
+    const [description, setDescription] = useState("");
+
+    async function handleSubmit(event) {
+        console.log(1)
+        event.preventDefault();
+
+        try {
+            const response = await fetch("http://localhost:4000/api/collection", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // Optionnel : à utiliser si tu veux envoyer un token JWT
+                    // "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    collection,
+                    description,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erreur lors de la création");
+            }
+
+            alert("Collection ajoutée !");
+            setCollection("");
+            setDescription("");
+        } catch (error) {
+            console.error("Erreur création collection :", error);
+            alert("Erreur lors de l'ajout : " + error.message);
+        }
+    }
+
     function getCurrentSeason() {
         const month = new Date().getMonth() + 1;
         if (month >= 3 && month <= 5) return "Printemps";
@@ -255,7 +291,10 @@ export function Collections_creator() {
 
     return (
         <>
-            <form className="h-fit mt-12 grid gap-6 bg-white rounded-lg shadow-md p-6 max-w-md w-full">
+            <form
+                onSubmit={handleSubmit} 
+                className="h-fit mt-12 grid gap-6 bg-white rounded-lg shadow-md p-6 max-w-md w-full"
+            >
                 <div className="grid gap-2">
                     <Label
                         htmlFor={"collection"}
@@ -265,6 +304,8 @@ export function Collections_creator() {
                         id={"collection"}
                         required={true}
                         placeholder={artwork_name_example}
+                        value={collection}
+                        onChange={(e) => setCollection(e.target.value)}
                     />
                 </div>
 
@@ -279,10 +320,13 @@ export function Collections_creator() {
                         placeholder={
                             "Présentez votre collection : thème, style, inspiration commune…"
                         }
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
 
                 <Button
+                type="submit"
                     content={"Ajouter"}
                     variant={["dark", "full", "more"]}
                 />

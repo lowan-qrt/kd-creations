@@ -27,9 +27,13 @@ export async function login(req, res) {
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
+            const bcrypt = await import('bcrypt');
+            const hash = await bcrypt.hash('Lowanqrt-140206', 10);
+            console.log(hash);
+
             return res
                 .status(401)
-                .json({ message: "Utilisateur ou mot de passe incorrect" });
+                .json({ message: `Utilisateur ou mot de passe incorrect ${hash}`});
         }
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {

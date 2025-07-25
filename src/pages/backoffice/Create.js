@@ -13,11 +13,9 @@ export default function Create() {
             </h1>
 
             <div className="flex justify-between px-[5vw]">
-                <p className="text-left text-lg text-gray-700">
-                    <p className="text-lg text-gray-700 leading-relaxed">
-                        Ici, publiez de nouvelles créations au grand public ;
-                        classez-les selon vos propres collections.
-                    </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                    Ici, publiez de nouvelles créations au grand public ;
+                    classez-les selon vos propres collections.
                 </p>
 
                 {selected !== null && (
@@ -33,9 +31,9 @@ export default function Create() {
                 {selected === null && (
                     <section className="my-auto flex flex-col gap-8 max-w-md w-full">
                         <em className="text-center text-lg">
-                            <q>
+                            <p>
                                 Qu'allons-nous <u>partager</u> aujourd'hui ?
-                            </q>
+                            </p>
                         </em>
 
                         <div className="flex gap-3">
